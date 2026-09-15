@@ -863,7 +863,23 @@ function guardarDatos() {
     localStorage.setItem('pedidos', JSON.stringify(pedidos));
 }// Forzar cuenta de administrador
 usuarios.find(u => u.correo === 'teocellunlocker@gmail.com').esAdmin = true;
+// FUNCIÓN PARA CONFIRMAR ENTREGA DE PEDIDO
+function confirmarEntrega(boton) {
+    const fila = boton.closest('tr');
+    const celdaEstado = fila.querySelector('td:nth-child(5)');
+    const celdaResultado = fila.querySelector('td:nth-child(6)');
+    const celdaBoton = fila.querySelector('td:nth-child(7)');
 
+    const codigo = prompt("📝 Escribe el Código o Resultado del servicio:");
+    
+    if (codigo && codigo.trim() !== "") {
+        celdaEstado.innerHTML = "✅ Exitoso";
+        celdaEstado.style.color = "#10b981";
+        celdaResultado.innerHTML = "<span style='background:#10b98120; color:#34d399; padding:4px 8px; border-radius:4px; font-weight:bold;'>" + codigo + "</span>";
+        celdaBoton.innerHTML = "<button style='background:#475569; color:#cbd5e1; border:none; padding:6px 14px; border-radius:5px;' disabled>✅ Entregado</button>";
+        alert("✅ Pedido confirmado y entregado correctamente!");
+    }
+}
 </script>
 </body>
 </html>
