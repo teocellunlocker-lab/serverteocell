@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios por IMEI - Serverteocell</title>
+<style>
+* {margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',sans-serif;}
+:root {
+    --fondo-oscuro:#0f172a; --fondo-panel:#1e293b; --fondo-hover:#334155;
+    --color-primario:#ff6600; --color-secundario:#00d9ff; --color-exito:#10b981;
+    --texto-claro:#e2e8f0; --borde:#334155;
+}
+body {background:var(--fondo-oscuro); color:var(--texto-claro); line-height:1.6;}
+.barra-logos {background:var(--fondo-panel); padding:12px 0; overflow:hidden; white-space:nowrap; border-bottom:1px solid var(--borde);}
+.logos-carrusel {display:inline-block; animation:desplazar 20s linear infinite;}
+.barra-logos img {height:55px; margin:0 25px; vertical-align:middle; max-width:110px; object-fit:contain;}
+@keyframes desplazar {from{transform:translateX(0)} to{transform:translateX(-50%)}}
+.top-bar {background:var(--fondo-panel); padding:15px 30px; display:flex; justify-content:space-between; align-items:center; border-bottom:3px solid var(--color-primario);}
+.logo {font-size:26px; font-weight:bold; color:var(--color-primario);}
+.logo span {color:var(--color-secundario);}
+.nav-menu {background:var(--fondo-panel); padding:12px 30px; display:flex; gap:10px; border-bottom:1px solid var(--borde); flex-wrap:wrap;}
+.nav-menu a {padding:10px 18px; background:transparent; color:var(--texto-claro); border-radius:6px; transition:all 0.2s; text-decoration:none;}
+.nav-menu a:hover, .nav-menu a.activo {background:var(--fondo-hover); color:var(--color-primario);}
+.contenedor {max-width:1000px; margin:30px auto; padding:0 20px;}
+.tarjeta {background:var(--fondo-panel); border:1px solid var(--borde); border-radius:10px; padding:25px;}
+.tarjeta h2 {color:var(--color-primario); margin-bottom:20px; padding-bottom:10px; border-bottom:1px solid var(--borde);}
+.servicio {padding:14px 18px; background:var(--fondo-oscuro); border-radius:6px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; border:1px solid transparent;}
+.servicio:hover {border-color:var(--color-primario);}
+.precio {color:var(--color-exito); font-weight:bold; font-size:16px;}
+.ruta {color:#94a3b8; font-size:13px; margin-bottom:15px;}
+.ruta a {color:var(--color-secundario); text-decoration:none;}
+</style>
+</head>
+<body>
+
+<div class="barra-logos">
+  <div class="logos-carrusel">
+    <img src="imagenes/miflash.gif" alt="MiFlash">
+    <img src="imagenes/hydra.gif" alt="Hydra">
+    <img src="imagenes/octopus.png" alt="Octopus">
+    <img src="imagenes/z3x.png" alt="Z3X">
+    <img src="imagenes/xiaomi.png" alt="Xiaomi">
+    <img src="imagenes/unlocktool.gif" alt="UnlockTool">
+    <img src="imagenes/miflash.gif" alt="MiFlash">
+    <img src="imagenes/hydra.gif" alt="Hydra">
+    <img src="imagenes/octopus.png" alt="Octopus">
+    <img src="imagenes/z3x.png" alt="Z3X">
+    <img src="imagenes/xiaomi.png" alt="Xiaomi">
+    <img src="imagenes/unlocktool.gif" alt="UnlockTool">
+  </div>
+</div>
+
+<div class="top-bar">
+    <div class="logo">⚡ SERVER<span>TEOCELL</span></div>
+    <div style="color:#94a3b8;">🔓 Servicios por IMEI</div>
+</div>
+
+<div class="nav-menu">
+    <a href="index.html">🏠 Inicio</a>
+    <a href="servicios-imei.html" class="activo">📱 Servicios por IMEI</a>
+    <a href="activaciones.html">🔑 Activaciones</a>
+    <a href="venta-creditos.html">💰 Venta de Créditos</a>
+    <a href="servicios-remotos.html">🖥️ Servicios Remotos</a>
+</div>
+
+<div class="contenedor">
+    <div class="ruta"><a href="index.html">Inicio</a> / Servicios por IMEI</div>
+    <div class="tarjeta">
+        <h2>📱 Servicios por IMEI</h2>
+        <div class="servicio"><span>Motorola Factory Unlock Code</span><span class="precio">$3.50</span></div>
+        <div class="servicio"><span>Motorola Network Lock NCK Code</span><span class="precio">$3.00</span></div>
+        <div class="servicio"><span>LG Fast Unlock Code</span><span class="precio">$4.50</span></div>
+        <div class="servicio"><span>Samsung IMEI Verificación</span><span class="precio">$1.50</span></div>
+        <div class="servicio"><span>Samsung Network Unlock</span><span class="precio">$12.00</span></div>
+        <div class="servicio"><span>iPhone IMEI Consulta</span><span class="precio">$2.50</span></div>
+    </div>
+</div>
+
+</body>
+</html>
