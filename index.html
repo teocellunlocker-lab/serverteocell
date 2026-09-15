@@ -3,830 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Serverteocell - Sistema de Pedidos</title>
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
-}
-:root {
-    --fondo-oscuro: #0f172a;
-    --fondo-panel: #1e293b;
-    --fondo-hover: #334155;
-    --color-primario: #ff6600;
-    --color-secundario: #00d9ff;
-    --color-exito: #10b981;
-    --color-aviso: #f59e0b;
-    --color-peligro: #ef4444;
-    --texto-claro: #e2e8f0;
-    --texto-secundario: #94a3b8;
-    --borde: #334155;
-}
-body {
-    background-color: var(--fondo-oscuro);
-    color: var(--texto-claro);
-    line-height: 1.6;
-    font-size: 14px;
-}
-a { text-decoration: none; color: inherit; }
-
-/* 🎞️ BARRA DE LOGOS */
-.barra-logos {
-    background: #1e293b;
-    padding: 10px;
-    text-align: center;
-    overflow: hidden;
-    white-space: nowrap;
-    border-bottom: 1px solid var(--borde);
-}
-.barra-logos img {
-    height: 50px;
-    margin: 0 12px;
-    vertical-align: middle;
-    max-width: 100px;
-    object-fit: contain;
-}
-
-/* 🔝 BARRA SUPERIOR */
-.top-bar {
-    background-color: var(--fondo-panel);
-    padding: 12px 25px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 2px solid var(--color-primario);
-}
-.logo {
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--color-primario);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    letter-spacing: 0.5px;
-}
-.logo span { color: var(--color-secundario); }
-.top-info {
-    display: flex;
-    gap: 25px;
-    align-items: center;
-}
-.saldo-box {
-    background: linear-gradient(90deg, #10b981, #059669);
-    padding: 6px 16px;
-    border-radius: 20px;
-    font-weight: 600;
-    color: #fff;
-}
-.user-box { display: flex; align-items: center; gap: 10px; }
-.logout-btn {
-    background: var(--color-peligro);
-    color: #fff;
-    border: none;
-    padding: 6px 14px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background 0.2s;
-}
-.logout-btn:hover { background: #dc2626; }
-/* 📌 MENÚ PRINCIPAL */
-.nav-bar {
-    background-color: var(--fondo-panel);
-    padding: 10px 25px;
-    display: flex;
-    gap: 5px;
-    border-bottom: 1px solid var(--borde);
-    flex-wrap: wrap;
-}
-.nav-btn {
-    padding: 10px 18px;
-    background: transparent;
-    border: none;
-    color: var(--texto-claro);
-    cursor: pointer;
-    font-size: 14px;
-    border-radius: 5px 5px 0 0;
-    transition: all 0.2s;
-}
-.nav-btn:hover, .nav-btn.activo {
-    background-color: var(--fondo-hover);
-    color: var(--color-primario);
-}
-/* 📂 CATEGORÍAS DE SERVICIOS */
-.categorias-bar {
-    background-color: var(--fondo-panel);
-    padding: 8px 25px;
-    display: flex;
-    gap: 8px;
-    border-bottom: 1px solid var(--borde);
-    flex-wrap: wrap;
-}
-.cat-btn {
-    padding: 8px 14px;
-    background: transparent;
-    border: 1px solid transparent;
-    color: var(--texto-secundario);
-    cursor: pointer;
-    font-size: 13px;
-    border-radius: 5px;
-    transition: all 0.2s;
-}
-.cat-btn:hover, .cat-btn.activo {
-    border-color: var(--color-primario);
-    color: var(--color-primario);
-    background: rgba(255,102,0,0.08);
-}
-.contenedor {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 0 20px;
-}
-.ruta {
-    color: var(--texto-secundario);
-    font-size: 13px;
-    margin-bottom: 15px;
-}
-.ruta a { color: var(--color-secundario); }
-.tarjeta {
-    background-color: var(--fondo-panel);
-    border: 1px solid var(--borde);
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
-.tarjeta h2, .tarjeta h3 {
-    color: var(--color-primario);
-    margin-bottom: 18px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--borde);
-}
-.oculto { display: none !important; }
-.buscador { margin-bottom: 20px; }
-.buscador input {
-    max-width: 500px;
-    width: 100%;
-    padding: 10px 14px;
-    background: var(--fondo-oscuro);
-    border: 1px solid var(--borde);
-    border-radius: 6px;
-    color: #fff;
-    font-size: 14px;
-}
-.buscador input:focus {
-    outline: none;
-    border-color: var(--color-primario);
-    box-shadow: 0 0 0 2px rgba(255,102,0,0.15);
-}
-.servicio-item {
-    padding: 14px 18px;
-    background-color: var(--fondo-oscuro);
-    border-radius: 6px;
-    margin-bottom: 8px;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 1px solid transparent;
-    transition: all 0.2s;
-}
-.servicio-item:hover {
-    background-color: var(--fondo-hover);
-    border-color: var(--color-primario);
-}
-.precio { color: var(--color-exito); font-weight: 700; font-size: 15px; }
-.fila { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 15px; }
-.campo { flex: 1; min-width: 220px; }
-label {
-    display: block;
-    margin-bottom: 6px;
-    color: var(--texto-secundario);
-    font-weight: 500;
-}
-input, select, textarea {
-    width: 100%;
-    padding: 10px 12px;
-    background-color: var(--fondo-oscuro);
-    border: 1px solid var(--borde);
-    border-radius: 6px;
-    color: #fff;
-    font-size: 14px;
-}
-input:focus, select:focus {
-    outline: none;
-    border-color: var(--color-primario);
-}
-button.boton {
-    background-color: var(--color-primario);
-    color: #fff;
-    border: none;
-    padding: 10px 22px;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background 0.2s;
-}
-button.boton:hover { background: #e65c00; }
-button.boton-verde { background: var(--color-exito); color: #fff; }
-button.boton-verde:hover { background: #059669; }
-button.boton-azul { background: var(--color-secundario); color: #000; }
-button.boton-azul:hover { background: #00bedd; }
-.tabla-contenedor { overflow-x: auto; }
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 8px;
-}
-th, td {
-    padding: 12px 10px;
-    text-align: left;
-    border-bottom: 1px solid var(--borde);
-    font-size: 13.5px;
-}
-th {
-    background-color: var(--fondo-hover);
-    color: var(--color-primario);
-    font-weight: 600;
-}
-tr:hover { background-color: rgba(51,65,85,0.4); }
-.estado-pendiente { color: var(--color-aviso); font-weight: 600; }
-.estado-procesando { color: #60a5fa; font-weight: 600; }
-.estado-listo { color: var(--color-exito); font-weight: 600; }
-.estado-cancelado { color: var(--color-peligro); font-weight: 600; }
-/* 💳 TARJETAS DE PAGO */
-.pago-card {
-    background: var(--fondo-oscuro);
-    border: 1px solid var(--borde);
-    border-radius: 8px;
-    padding: 18px;
-    margin-bottom: 12px;
-    transition: border 0.2s;
-}
-.pago-card:hover { border-color: var(--color-primario); }
-.pago-card h4 {
-    color: var(--color-secundario);
-    margin-bottom: 10px;
-    font-size: 15px;
-}
-.pago-card p {
-    margin: 4px 0;
-    font-size: 14px;
-    color: var(--texto-claro);
-}
-.pago-card p strong { color: #fff; }
-.modal-fondo {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.9);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 300;
-}
-.modal-caja {
-    background-color: var(--fondo-panel);
-    padding: 30px;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 420px;
-    border: 1px solid var(--color-primario);
-    box-shadow: 0 0 30px rgba(255,102,0,0.15);
-}
-.modal-caja h3 {
-    text-align: center;
-    color: var(--color-primario);
-    margin-bottom: 22px;
-    font-size: 18px;
-}
-.modal-caja p {
-    text-align: center;
-    margin-top: 15px;
-    font-size: 13px;
-    color: var(--texto-secundario);
-}
-.modal-caja a { color: var(--color-secundario); }
-@media(max-width:768px) {
-    .top-bar, .nav-bar, .categorias-bar { flex-wrap: wrap; gap: 10px; }
-    .fila { flex-direction: column; }
-}
-</style>
+    <title>Inicio - Serverteocell</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,Roboto,Arial,sans-serif}
+        :root{--fondo-oscuro:#0f172a;--fondo-panel:#1e293b;--color-primario:#ff6600;--color-secundario:#00d9ff;--texto-claro:#f1f5f9}
+        body{background-color:var(--fondo-oscuro);color:var(--texto-claro);line-height:1.6}
+        header{background:linear-gradient(135deg,var(--color-primario),#e65c00);padding:1.5rem;text-align:center}
+        h1{font-size:2rem;margin-bottom:.5rem}
+        nav{background-color:var(--fondo-panel);padding:1rem;position:sticky;top:0}
+        .nav-botones{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center}
+        .nav-botones button{background-color:var(--fondo-oscuro);color:var(--texto-claro);border:none;padding:.7rem 1.2rem;border-radius:6px;cursor:pointer}
+        .nav-botones button:hover,.nav-botones button.activo{background-color:var(--color-primario)}
+        main{max-width:1200px;margin:0 auto;padding:2rem}
+        .seccion{display:none;animation:aparecer .4s ease}
+        .seccion.activa{display:block}
+        @keyframes aparecer{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+        .tarjeta{background-color:var(--fondo-panel);border-radius:12px;padding:2rem;margin-bottom:2rem}
+        h2{color:var(--color-primario);margin-bottom:1.5rem;padding-bottom:.5rem;border-bottom:2px solid var(--color-primario)}
+        .servicios-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+        .servicio{background-color:var(--fondo-oscuro);padding:1.5rem;border-radius:8px;border-left:4px solid var(--color-primario)}
+        .servicio h3{color:var(--color-secundario);margin-bottom:.8rem}
+        footer{text-align:center;padding:2rem;color:#94a3b8;margin-top:2rem}
+    </style>
 </head>
 <body>
-
-<!-- 🎞️ BARRA DE LOGOS AHORA EN SU LUGAR CORRECTO -->
-<div class="barra-logos">
-  <img src="imagenes/miflash.gif" alt="MiFlash" onerror="this.style.display='none'">
-  <img src="imagenes/hydra.gif" alt="Hydra" onerror="this.style.display='none'">
-  <img src="imagenes/octopus.png" alt="Octopus" onerror="this.style.display='none'">
-  <img src="imagenes/z3x.png" alt="Z3X" onerror="this.style.display='none'">
-  <img src="imagenes/xiaomi.png" alt="Xiaomi" onerror="this.style.display='none'">
-  <img src="imagenes/unlocktool.gif" alt="UnlockTool" onerror="this.style.display='none'">
-</div>
-
-<!-- 🔐 MODAL DE INICIO DE SESIÓN -->
-<div id="modal-login" class="modal-fondo">
-    <div class="modal-caja">
-        <h3>🔐 Acceso al Sistema</h3>
-        
-        <div id="form-login">
-            <div class="campo" style="margin-bottom:12px;">
-                <label>Usuario</label>
-                <input type="text" id="usuario-login" placeholder="Escribe tu usuario">
-            </div>
-            <div class="campo" style="margin-bottom:15px;">
-                <label>Contraseña</label>
-                <input type="password" id="clave-login" placeholder="Escribe tu contraseña">
-            </div>
-            <button class="boton" style="width:100%; margin-bottom:10px;" onclick="iniciarSesion()">Ingresar</button>
-            <p>¿No tienes cuenta? <a href="#" onclick="mostrarRegistro()">Crear cuenta nueva</a></p>
-        </div>
-        <div id="form-registro" class="oculto">
-            <div class="campo" style="margin-bottom:12px;">
-                <label>Nombre Completo</label>
-                <input type="text" id="reg-nombre" placeholder="Tu nombre completo">
-            </div>
-            <div class="campo" style="margin-bottom:12px;">
-                <label>Correo Electrónico</label>
-                <input type="email" id="reg-correo" placeholder="correo@ejemplo.com">
-            </div>
-            <div class="campo" style="margin-bottom:12px;">
-                <label>Usuario</label>
-                <input type="text" id="reg-usuario" placeholder="Nombre de usuario">
-            </div>
-            <div class="campo" style="margin-bottom:15px;">
-                <label>Contraseña</label>
-                <input type="password" id="reg-clave" placeholder="Crea tu contraseña">
-            </div>
-            <button class="boton boton-verde" style="width:100%; margin-bottom:10px;" onclick="registrarUsuario()">Crear Cuenta</button>
-            <p>¿Ya tienes cuenta? <a href="#" onclick="mostrarLogin()">Iniciar sesión</a></p>
-        </div>
+<header>
+    <h1>📱 Serverteocell — Servicios Técnicos</h1>
+    <p>Desbloqueos · FRP · Firmware · Reparación</p>
+</header>
+<nav>
+    <div class="nav-botones">
+        <button class="activo" onclick="mostrarSeccion('inicio')">Inicio</button>
+        <button onclick="mostrarSeccion('servicios')">Servicios</button>
+        <button onclick="mostrarSeccion('pagos')">Pagos</button>
+        <button onclick="mostrarSeccion('contacto')">Contacto</button>
     </div>
-</div>
-
-<!-- ✅ SISTEMA COMPLETO -->
-<div id="sistema-completo" class="oculto">
-    <!-- 🔝 BARRA SUPERIOR -->
-    <div class="top-bar">
-        <div class="logo">⚡ SERVER<span>TEOCELL</span></div>
-        <div class="top-info">
-            <div class="saldo-box">💰 Saldo: $<span id="mi-saldo">0.00</span></div>
-            <div class="user-box">
-                <span>👤 <span id="nombre-usuario"></span></span>
-                <button class="logout-btn" onclick="cerrarSesion()">Salir</button>
+</nav>
+<main>
+    <section id="inicio" class="seccion activa">
+        <div class="tarjeta">
+            <h2>👋 Bienvenido a Serverteocell</h2>
+            <p style="font-size:1.1rem;margin-bottom:1rem;">Especialistas en servicios técnicos para telefonía móvil. Trabajamos con todas las marcas.</p>
+            <ul style="margin-left:1.5rem;margin-bottom:1rem;">
+                <li>✅ Desbloqueo FRP / Cuenta Google</li>
+                <li>✅ Instalación de Firmware</li>
+                <li>✅ Drivers y Herramientas</li>
+                <li>✅ Desarrollo Web</li>
+            </ul>
+            <p style="color:var(--color-secundario);font-weight:bold;">📍 Asunción, Paraguay</p>
+        </div>
+    </section>
+    <section id="servicios" class="seccion">
+        <div class="tarjeta">
+            <h2>🛠️ Servicios y Precios</h2>
+            <div class="servicios-grid">
+                <div class="servicio"><h3>🔓 Desbloqueo FRP</h3><p>Eliminación de cuenta Google.</p><p style="color:#10b981;font-weight:bold;margin-top:.5rem">Consultar</p></div>
+                <div class="servicio"><h3>📀 Firmware</h3><p>Instalación de sistema oficial.</p><p style="color:#10b981;font-weight:bold;margin-top:.5rem">Consultar</p></div>
+                <div class="servicio"><h3>🔧 Drivers y PC</h3><p>Configuración completa.</p><p style="color:#10b981;font-weight:bold;margin-top:.5rem">Consultar</p></div>
             </div>
         </div>
-    </div>
-    <!-- 📌 MENÚ PRINCIPAL -->
-    <div class="nav-bar">
-        <button class="nav-btn activo" onclick="cambiarSeccion('pedidos', this)">📋 Realizar Pedido</button>
-        <button class="nav-btn" onclick="cambiarSeccion('historial', this)">📊 Historial de Pedidos</button>
-        <button class="nav-btn" onclick="cambiarSeccion('recargar', this)">💳 Recargar Saldo</button>
-        <button class="nav-btn oculto" id="btn-admin" onclick="cambiarSeccion('administrador', this)">⚙️ Administración</button>
-    </div>
-    <!-- 📦 CONTENEDOR PRINCIPAL -->
-    <div class="contenedor">
-        <div class="ruta" id="ruta-pagina">
-            <a href="#">Inicio</a> / Realizar Pedido
+    </section>
+    <section id="pagos" class="seccion">
+        <div class="tarjeta">
+            <h2>💳 Datos de Pago</h2>
+            <p><strong>Banco:</strong> Itaú / BNF</p>
+            <p><strong>Titular:</strong> Teocell</p>
+            <p><strong>País:</strong> Paraguay</p>
+            <p style="color:#10b981;margin-top:1rem;">✅ Envía comprobante por WhatsApp</p>
         </div>
-        <!-- 📋 SECCIÓN: PEDIDOS -->
-        <div id="sec-pedidos">
-            <div class="tarjeta">
-                <h2>📋 Realizar Nuevo Pedido</h2>
-                <!-- 📂 CATEGORÍAS DE SERVICIOS -->
-                <div class="categorias-bar">
-                    <button class="cat-btn activo" onclick="cambiarCategoria('todos', this)">🔍 Todos los Servicios</button>
-                    <button class="cat-btn" onclick="cambiarCategoria('imei', this)">📱 Servicios por IMEI</button>
-                    <button class="cat-btn" onclick="cambiarCategoria('creditos', this)">🧰 Créditos / Activaciones</button>
-                    <button class="cat-btn" onclick="cambiarCategoria('remoto', this)">🖥️ Servicios Remotos / Bypass</button>
-                </div>
-                <div class="buscador">
-                    <label>🔍 Buscar Servicio:</label>
-                    <input type="text" id="buscar-servicio" placeholder="Escribe el nombre del servicio...">
-                </div>
-                <div id="lista-servicios"></div>
-            </div>
-            <!-- 📝 FORMULARIO DE PEDIDO -->
-            <div id="form-pedido" class="tarjeta oculto">
-                <h3 id="nom-servicio"></h3>
-                <p style="color:var(--color-exito); margin-bottom:15px;">Precio: $<span id="precio-serv"></span></p>
-                <div class="fila">
-                    <div class="campo">
-                        <label>IMEI / Código / Dato Requerido *</label>
-                        <input type="text" id="imei-dato" placeholder="Escribe el IMEI o dato aquí">
-                    </div>
-                </div>
-                <div class="fila">
-                    <div class="campo">
-                        <label>Notas / Modelo (Opcional)</label>
-                        <textarea id="notas" rows="3" placeholder="Marca, modelo, versión..."></textarea>
-                    </div>
-                </div>
-                <button class="boton boton-verde" onclick="enviarPedido()">✅ Realizar Pedido</button>
-            </div>
+    </section>
+    <section id="contacto" class="seccion">
+        <div class="tarjeta">
+            <h2>📞 Contacto</h2>
+            <p><strong>📲 WhatsApp:</strong> +595 981 123 456</p>
+            <p><strong>📧 Correo:</strong> contacto@serverteocell.com.py</p>
+            <p><strong>⏰ Horario:</strong> Lun-Vie 8:00 a 17:00</p>
         </div>
-        <!-- 📊 SECCIÓN: HISTORIAL -->
-        <div id="sec-historial" class="oculto">
-            <div class="tarjeta">
-                <h2>📊 Historial de Mis Pedidos</h2>
-                <div class="tabla-contenedor">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Fecha</th>
-                                <th>Servicio</th>
-                                <th>IMEI / Dato</th>
-                                <th>Precio</th>
-                                <th>Estado</th>
-                                <th>Resultado / Código</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabla-pedidos"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <!-- 💳 SECCIÓN: RECARGAR SALDO -->
-        <div id="sec-recargar" class="oculto">
-            <div class="tarjeta">
-                <h2>💳 Recargar Saldo</h2>
-                <p style="margin-bottom:18px;">Elige el método de pago de tu preferencia, realiza el pago y envía el comprobante por WhatsApp.</p>
-                <!-- 🏦 BANCO UENO -->
-                <div class="pago-card">
-                    <h4>🏦 Banco UENO</h4>
-                    <p><strong>Número de Cuenta:</strong> 4816230</p>
-                    <p><strong>Titular:</strong> Teodoro Espinola</p>
-                </div>
-                <!-- 💵 GIROS / EFECTIVO ALIA -->
-                <div class="pago-card">
-                    <h4>💵 Giros y Efectivo - Alia</h4>
-                    <p><strong>Teléfono / Envío:</strong> 0982 927 721</p>
-                    <p><strong>Titular:</strong> Teodoro Espinola</p>
-                </div>
-                <!-- 🌍 BINANCE -->
-                <div class="pago-card">
-                    <h4>🌍 Pago Mundial - Binance</h4>
-                    <p><strong>ID de Pago:</strong> 52306524</p>
-                    <p><strong>Usuario:</strong> teocelluser-58d3d</p>
-                </div>
-                <!-- 📲 WHATSAPP -->
-                <div class="pago-card" style="border-color: var(--color-exito);">
-                    <h4>📲 Enviar Comprobante por WhatsApp</h4>
-                    <p>Una vez realizado el pago, envía el comprobante con tu nombre de usuario.</p>
-                    <p style="margin-top:8px;"><strong>📱 WhatsApp:</strong> +595 973 662 809</p>
-                    <a href="https://wa.me/595973662809?text=Hola!%20Soy%20usuario%20de%20Serverteocell.%20Adjunto%20comprobante%20de%20recarga%20de%20saldo." target="_blank" class="boton boton-verde" style="display:inline-block; margin-top:10px;">📲 Enviar Comprobante Ahora</a>
-                </div>
-            </div>
-        </div>
-        <!-- ⚙️ PANEL DE ADMINISTRACIÓN -->
-        <div id="sec-administrador" class="oculto">
-            <div class="tarjeta">
-                <h2>⚙️ Panel de Administración</h2>
-                <div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
-                    <button class="boton boton-azul" onclick="mostrarTodosPedidos()">Ver Todos los Pedidos</button>
-                    <button class="boton boton-verde" onclick="mostrarListaUsuarios()">Lista de Usuarios / Agregar Saldo</button>
-                </div>
-                <div id="admin-pedidos">
-                    <h3>Todos los Pedidos del Sistema</h3>
-                    <div class="tabla-contenedor">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Cliente</th>
-                                    <th>Fecha</th>
-                                    <th>Servicio</th>
-                                    <th>IMEI</th>
-                                    <th>Precio</th>
-                                    <th>Estado</th>
-                                    <th>Acción</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tabla-todos-pedidos"></tbody>
-                        </table>
-                    </div>
-                </div>
-                <div id="admin-usuarios" class="oculto">
-                    <h3>Usuarios y Saldo</h3>
-                    <div class="tabla-contenedor">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Usuario</th>
-                                    <th>Nombre</th>
-                                    <th>Correo</th>
-                                    <th>Saldo Actual</th>
-                                    <th>Agregar Saldo</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tabla-usuarios"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    </section>
+</main>
+<footer>© 2026 Serverteocell — Asunción, Paraguay</footer>
 <script>
-// ==================== TU CORREO DE ADMINISTRADOR ====================
-const ADMIN_EMAIL = 'teocellunlocker@gmail.com';
-// ==================== SERVICIOS ====================
-const SERVICIOS = {
-    todos: [
-        {id:1, cat:'imei', nombre:"Motorola Factory Unlock Code", precio:3.50},
-        {id:2, cat:'imei', nombre:"Motorola Network Lock NCK Code", precio:3.00},
-        {id:3, cat:'remoto', nombre:"MDM Bypass Remoto", precio:5.00},
-        {id:4, cat:'imei', nombre:"LG Fast Unlock Code", precio:4.50},
-        {id:5, cat:'imei', nombre:"Samsung IMEI Verificación", precio:1.50},
-        {id:6, cat:'creditos', nombre:"Huawei Bootloader Código", precio:6.00},
-        {id:7, cat:'remoto', nombre:"FRP Remove - Todos los Modelos", precio:8.00},
-        {id:8, cat:'creditos', nombre:"Paquete 100 Créditos", precio:15.00},
-        {id:9, cat:'imei', nombre:"iPhone IMEI Consulta", precio:2.50},
-        {id:10, cat:'remoto', nombre:"Xiaomi Mi Account Remove", precio:7.00},
-        {id:11, cat:'imei', nombre:"Samsung Network Unlock", precio:12.00},
-        {id:12, cat:'creditos', nombre:"Nokia IMEI Repair Crédito", precio:9.50}
-    ]
-};
-let usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]');
-let pedidos = JSON.parse(localStorage.getItem('pedidos') || '[]');
-let usuarioActivo = JSON.parse(localStorage.getItem('usuarioActivo') || 'null');
-let servicioSeleccionado = null;
-let categoriaActiva = 'todos';
-// ==================== INICIO ====================
-window.onload = function() {
-    if(usuarioActivo) entrarAlSistema();
-    dibujarServicios(SERVICIOS.todos);
-    
-    document.getElementById('buscar-servicio').addEventListener('input', e => {
-        const t = e.target.value.toLowerCase();
-        let lista = SERVICIOS.todos;
-        if(categoriaActiva !== 'todos') {
-            lista = SERVICIOS.todos.filter(s => s.cat === categoriaActiva);
-        }
-        const filtrados = lista.filter(s => s.nombre.toLowerCase().includes(t));
-        dibujarServicios(filtrados);
-    });
-};
-// ==================== CAMBIAR CATEGORÍA ====================
-function cambiarCategoria(cat, btn) {
-    categoriaActiva = cat;
-    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('activo'));
-    btn.classList.add('activo');
-    let lista = SERVICIOS.todos;
-    if(cat !== 'todos') {
-        lista = SERVICIOS.todos.filter(s => s.cat === cat);
-    }
-    dibujarServicios(lista);
-    document.getElementById('form-pedido').classList.add('oculto');
+function mostrarSeccion(id){
+    document.querySelectorAll('.seccion').forEach(s=>s.classList.remove('activa'));
+    document.querySelectorAll('.nav-botones button').forEach(b=>b.classList.remove('activo'));
+    document.getElementById(id).classList.add('activa');
+    event.target.classList.add('activo');
 }
-// ==================== LOGIN / REGISTRO ====================
-function mostrarRegistro() {
-    document.getElementById('form-login').classList.add('oculto');
-    document.getElementById('form-registro').classList.remove('oculto');
-}
-function mostrarLogin() {
-    document.getElementById('form-registro').classList.add('oculto');
-    document.getElementById('form-login').classList.remove('oculto');
-}
-function registrarUsuario() {
-    const nombre = document.getElementById('reg-nombre').value.trim();
-    const correo = document.getElementById('reg-correo').value.trim().toLowerCase();
-    const usuario = document.getElementById('reg-usuario').value.trim();
-    const clave = document.getElementById('reg-clave').value.trim();
-    if(!nombre || !correo || !usuario || !clave) return alert('Completa todos los campos');
-    if(usuarios.find(u => u.usuario === usuario || u.correo === correo)) {
-        return alert('⚠️ El usuario o correo ya están registrados');
-    }
-    const nuevo = {
-        id: Date.now(), nombre, correo, usuario, clave,
-        saldo: 0.00,
-        esAdmin: (correo === ADMIN_EMAIL)
-    };
-    usuarios.push(nuevo);
-    guardarDatos();
-    alert('✅ Cuenta creada con éxito. ¡Bienvenido a Serverteocell!');
-    mostrarLogin();
-}
-function iniciarSesion() {
-    const usu = document.getElementById('usuario-login').value.trim();
-    const cla = document.getElementById('clave-login').value.trim();
-    const enc = usuarios.find(u => (u.usuario === usu || u.correo === usu) && u.clave === cla);
-    if(!enc) return alert('❌ Usuario o contraseña incorrectos');
-    usuarioActivo = enc;
-    localStorage.setItem('usuarioActivo', JSON.stringify(enc));
-    entrarAlSistema();
-}
-function entrarAlSistema() {
-    document.getElementById('modal-login').classList.add('oculto');
-    document.getElementById('sistema-completo').classList.remove('oculto');
-    document.getElementById('nombre-usuario').textContent = usuarioActivo.nombre;
-    actualizarSaldo();
-    
-    if(usuarioActivo.esAdmin) {
-        document.getElementById('btn-admin').classList.remove('oculto');
-    }
-    dibujarMisPedidos();
-}
-function cerrarSesion() {
-    localStorage.removeItem('usuarioActivo');
-    location.reload();
-}
-function actualizarSaldo() {
-    document.getElementById('mi-saldo').textContent = usuarioActivo.saldo.toFixed(2);
-    const idx = usuarios.findIndex(u => u.id === usuarioActivo.id);
-    if(idx !== -1) usuarios[idx] = usuarioActivo;
-    guardarDatos();
-}
-// ==================== DIBUJAR SERVICIOS ====================
-function dibujarServicios(lista) {
-    const cont = document.getElementById('lista-servicios');
-    cont.innerHTML = '';
-    lista.forEach(s => {
-        const div = document.createElement('div');
-        div.className = 'servicio-item';
-        div.innerHTML = `<span>${s.nombre}</span><span class="precio">$${s.precio.toFixed(2)}</span>`;
-        div.onclick = () => seleccionarServicio(s);
-        cont.appendChild(div);
-    });
-}
-function seleccionarServicio(serv) {
-    servicioSeleccionado = serv;
-    document.getElementById('form-pedido').classList.remove('oculto');
-    document.getElementById('nom-servicio').textContent = serv.nombre;
-    document.getElementById('precio-serv').textContent = serv.precio.toFixed(2);
-    document.getElementById('imei-dato').focus();
-}
-// ==================== ENVIAR PEDIDO ====================
-function enviarPedido() {
-    if(!servicioSeleccionado) return alert('Selecciona un servicio primero');
-    const dato = document.getElementById('imei-dato').value.trim();
-    if(!dato) return alert('Escribe el IMEI o dato requerido');
-    if(usuarioActivo.saldo < servicioSeleccionado.precio) {
-        return alert('❌ Saldo insuficiente.\nVe a "Recargar Saldo", realiza el pago y envía tu comprobante por WhatsApp.');
-    }
-    usuarioActivo.saldo -= servicioSeleccionado.precio;
-    actualizarSaldo();
-    const pedido = {
-        id: Date.now(),
-        fecha: new Date().toLocaleString('es-PY'),
-        idUsuario: usuarioActivo.id,
-        nomUsuario: usuarioActivo.usuario,
-        servicio: servicioSeleccionado.nombre,
-        dato: dato,
-        notas: document.getElementById('notas').value.trim(),
-        precio: servicioSeleccionado.precio,
-        estado: 'Pendiente',
-        resultado: 'En espera...'
-    };
-    pedidos.unshift(pedido);
-    guardarDatos();
-    alert(`✅ Pedido realizado con éxito!\n💵 Se descontó $${servicioSeleccionado.precio.toFixed(2)} de tu saldo.`);
-    
-    document.getElementById('form-pedido').classList.add('oculto');
-    document.getElementById('imei-dato').value = '';
-    document.getElementById('notas').value = '';
-    servicioSeleccionado = null;
-    cambiarSeccion('historial', document.querySelector('.nav-btn:nth-child(2)'));
-}
-// ==================== MIS PEDIDOS ====================
-function dibujarMisPedidos() {
-    const mis = pedidos.filter(p => p.idUsuario === usuarioActivo.id);
-    const cuerpo = document.getElementById('tabla-pedidos');
-    cuerpo.innerHTML = '';
-    mis.forEach(p => {
-        const fila = document.createElement('tr');
-        fila.innerHTML = `
-            <td>${p.fecha}</td>
-            <td>${p.servicio}</td>
-            <td>${p.dato}</td>
-            <td>$${p.precio.toFixed(2)}</td>
-            <td class="${p.estado==='Pendiente'?'estado-pendiente':p.estado==='Procesando'?'estado-procesando':'estado-listo'}">${p.estado}</td>
-            <td>${p.resultado}</td>
-        `;
-        cuerpo.appendChild(fila);
-    });
-}
-// ==================== ADMINISTRADOR ====================
-function mostrarTodosPedidos() {
-    document.getElementById('admin-pedidos').classList.remove('oculto');
-    document.getElementById('admin-usuarios').classList.add('oculto');
-    const cuerpo = document.getElementById('tabla-todos-pedidos');
-    cuerpo.innerHTML = '';
-    pedidos.forEach(p => {
-        const fila = document.createElement('tr');
-        fila.innerHTML = `
-            <td>${p.nomUsuario}</td>
-            <td>${p.fecha}</td>
-            <td>${p.servicio}</td>
-            <td>${p.dato}</td>
-            <td>$${p.precio.toFixed(2)}</td>
-            <td class="${p.estado==='Pendiente'?'estado-pendiente':p.estado==='Procesando'?'estado-procesando':'estado-listo'}">${p.estado}</td>
-            <td>
-                <button onclick="cambiarEstado(${p.id}, 'Procesando')" style="padding:3px 8px; font-size:12px; background:#3b82f6; color:#fff; border:none; border-radius:3px; cursor:pointer;">Procesar</button>
-                <button onclick="marcarListo(${p.id})" style="padding:3px 8px; font-size:12px; background:#10b981; color:#fff; border:none; border-radius:3px; cursor:pointer;">Listo</button>
-            </td>
-        `;
-        cuerpo.appendChild(fila);
-    });
-}
-function mostrarListaUsuarios() {
-    document.getElementById('admin-usuarios').classList.remove('oculto');
-    document.getElementById('admin-pedidos').classList.add('oculto');
-    const cuerpo = document.getElementById('tabla-usuarios');
-    cuerpo.innerHTML = '';
-    usuarios.forEach(u => {
-        const fila = document.createElement('tr');
-        fila.innerHTML = `
-            <td>${u.usuario}</td>
-            <td>${u.nombre}</td>
-            <td>${u.correo}</td>
-            <td>$${u.saldo.toFixed(2)}</td>
-            <td>
-                <input type="number" id="saldo-${u.id}" placeholder="0.00" style="width:70px; padding:4px; font-size:13px;">
-                <button onclick="agregarSaldo(${u.id})" style="padding:4px 8px; font-size:12px; background:#10b981; color:#fff; border:none; border-radius:3px; cursor:pointer;">Agregar</button>
-            </td>
-        `;
-        cuerpo.appendChild(fila);
-    });
-}
-function agregarSaldo(idUsuario) {
-    const valor = parseFloat(document.getElementById(`saldo-${idUsuario}`).value);
-    if(isNaN(valor) || valor <= 0) return alert('Escribe un monto válido');
-    const idx = usuarios.findIndex(u => u.id === idUsuario);
-    if(idx !== -1) {
-        usuarios[idx].saldo += valor;
-        if(usuarioActivo.id === idUsuario) {
-            usuarioActivo.saldo = usuarios[idx].saldo;
-            actualizarSaldo();
-        }
-        guardarDatos();
-        alert(`✅ Se agregó $${valor.toFixed(2)} al usuario ${usuarios[idx].usuario}`);
-        mostrarListaUsuarios();
-    }
-}
-function cambiarEstado(idPedido, estado) {
-    const idx = pedidos.findIndex(p => p.id === idPedido);
-    if(idx !== -1) {
-        pedidos[idx].estado = estado;
-        guardarDatos();
-        mostrarTodosPedidos();
-        dibujarMisPedidos();
-    }
-}
-function marcarListo(idPedido) {
-    const codigo = prompt('Escribe el código o resultado para entregar al cliente:');
-    if(codigo === null) return;
-    const idx = pedidos.findIndex(p => p.id === idPedido);
-    if(idx !== -1) {
-        pedidos[idx].estado = 'Completado';
-        pedidos[idx].resultado = codigo || 'Servicio completado';
-        guardarDatos();
-        mostrarTodosPedidos();
-        dibujarMisPedidos();
-    }
-}
-// ==================== NAVEGACIÓN ====================
-function cambiarSeccion(nombre, boton) {
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('activo'));
-    if(boton) boton.classList.add('activo');
-    document.getElementById('sec-pedidos').classList.add('oculto');
-    document.getElementById('sec-historial').classList.add('oculto');
-    document.getElementById('sec-recargar').classList.add('oculto');
-    document.getElementById('sec-administrador').classList.add('oculto');
-    document.getElementById('form-pedido').classList.add('oculto');
-    const ruta = document.getElementById('ruta-pagina');
-    if(nombre==='pedidos') {
-        document.getElementById('sec-pedidos').classList.remove('oculto');
-        ruta.innerHTML = '<a href="#">Inicio</a> / Realizar Pedido';
-    }
-    if(nombre==='historial') {
-        document.getElementById('sec-historial').classList.remove('oculto');
-        ruta.innerHTML = '<a href="#">Inicio</a> / Historial de Pedidos';
-        dibujarMisPedidos();
-    }
-    if(nombre==='recargar') {
-        document.getElementById('sec-recargar').classList.remove('oculto');
-        ruta.innerHTML = '<a href="#">Inicio</a> / Recargar Saldo';
-    }
-    if(nombre==='administrador') {
-        document.getElementById('sec-administrador').classList.remove('oculto');
-        ruta.innerHTML = '<a href="#">Inicio</a> / Panel de Administración';
-        mostrarTodosPedidos();
-    }
-}
-// ==================== GUARDAR DATOS ====================
-function guardarDatos() {
-    localStorage.setItem('usuarios', JSON.stringify(usuarios));
-    localStorage.setItem('pedidos', JSON.stringify(pedidos));
-}
-// Forzar administrador
-const adminUser = usuarios.find(u => u.correo === ADMIN_EMAIL);
-if(adminUser) adminUser.esAdmin = true;
 </script>
 </body>
 </html>
