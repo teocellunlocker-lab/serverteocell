@@ -802,18 +802,8 @@ function agregarSaldo(idUsuario) {
     }
 }
 
-function cambiarEstado(idPedido, estado) {
-    const idx = pedidos.findIndex(p => p.id === idPedido);
-    if(idx !== -1) {
-        pedidos[idx].estado = estado;
-        guardarDatos();
-        mostrarTodosPedidos();
-        dibujarMisPedidos();
-    }
-}
-
 function marcarListo(idPedido) {
-    const codigo = prompt('🔑 Escribe el código o resultado para entregar al cliente:');
+    const codigo = prompt('📝 Escribe el código o resultado para entregar al cliente:');
     if(codigo === null) return;
 
     const idx = pedidos.findIndex(p => p.id === idPedido);
@@ -834,6 +824,56 @@ function marcarListo(idPedido) {
         if(correoCliente && correoCliente.includes('@')) {
             const asunto = encodeURIComponent("✅ Tu pedido ya está listo — ServerTeocell");
             const cuerpo = encodeURIComponent(
+`Hola! 👋
+
+Gracias por confiar en ServerTeocell. Tu pedido ya está listo:
+
+📋 Servicio: ${servicio}
+📱 IMEI: ${imei}
+💰 Precio: $${precio}
+
+🔑 Tu código / resultado:
+${codigo}
+
+Copia este código y úsalo en tu equipo. Si tienes alguna duda, responde a este correo.
+
+Saludos,
+ServerTeocell
+📍 Asunción, Paraguay
+`
+            );
+            window.open(`mailto:${correoCliente}?subject=${asunto}&body=${cuerpo}`);
+            alert("✅ Pedido confirmado!\nSe abrió el correo para enviar a:\n" + correoCliente);
+        } else {
+            alert("✅ Pedido marcado como completado!\n(Correo del cliente no disponible)");
+        }
+    }
+}
+
+Gracias por confiar en ServerTeocell. Tu pedido ya está listo:
+
+📋 Servicio: ${servicio}
+📱 IMEI: ${imei}
+💰 Precio: $${precio}
+
+🔑 Tu código / resultado:
+${codigo}
+
+Copia este código y úsalo en tu equipo. Si tienes alguna duda, responde a este correo.
+
+Saludos,
+ServerTeocell
+📍 Asunción, Paraguay
+`
+            );
+            window.open(`mailto:${correoCliente}?subject=${asunto}&body=${cuerpo}`);
+            alert("✅ Pedido confirmado!\nSe abrió el correo para enviar a:\n" + correoCliente);
+        } else {
+            alert("✅ Pedido marcado como completado!\n(Correo del cliente no disponible)");
+        }
+    }
+}
+
 `Hola! 👋
 
 Gracias por confiar en ServerTeocell. Tu pedido ya está listo:
